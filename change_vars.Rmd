@@ -1,0 +1,43 @@
+---
+title: "Change of variables tutorial"
+author: "Jonathan Sweeney"
+date: "6/19/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Change of Variables tutorial
+
+The goal of this tutorial is to provide hands on experience adjusting for change of variables in Stan.  The hope is through experience comes wisdom, and an understanding of when and why we need to apply Jacobian adjustments to sampling densities.
+
+## Univariate example
+
+We will begin with a simple log transformation of the outcome $y$.  This example is referenced on page 276 of the Stan Manual (2.15.0).
+
+First, we will generate some simulated data from a known data generating process.
+
+```{r, eval = T}
+x <- runif(500, min = 10, max = 100)
+
+e <- rnorm(500, 0, 2) # random error term
+y <- 0.5 * x + e
+
+stan.dat <- lst(J = length(y),
+                y = y,
+                x = x)
+```
+
+Next, we write our Stan model, which can be found in the github folder.  Only the model section is shown below to save space.
+
+```{stan}
+model {
+
+}
+```
+
+## Multivariate example
+
+Although frequently mentioned, I struggled to find an existing multivariate change of variables example.  So, I made one up.
